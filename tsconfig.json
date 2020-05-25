@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2017",                         
+    "module": "commonjs",                    
+    "strict": true,                           
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "jsx": "react",
+  }
+}
