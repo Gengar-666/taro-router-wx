@@ -27,5 +27,8 @@ class TaroRouter {
     beforeEach(beforeEachHookCallBack) {
         hooks_1.default.beforeEachHookCallBack = beforeEachHookCallBack;
     }
+    register(componet) {
+        componet.prototype.$router = this;
+    }
 }
 exports.default = TaroRouter;

@@ -8,5 +8,7 @@
     "outDir": "./dist",
     "rootDir": ".",
     "jsx": "react",
+    "declaration":true, //打包的js 自动生成 .d.ts
+    "skipLibCheck": true
   }
 }

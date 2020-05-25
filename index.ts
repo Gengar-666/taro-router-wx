@@ -33,6 +33,10 @@ class TaroRouter {
   beforeEach(beforeEachHookCallBack: BeforeEachHookCallBack) {
     Hooks.beforeEachHookCallBack = beforeEachHookCallBack
   }
+
+  register(componet) {
+    componet.prototype.$router = this
+  }
 }
 
 export default TaroRouter
