@@ -9,10 +9,9 @@
 	},
 	"author": "obito",
 	"license": "ISC",
-	"dependencies": {
-		"@tarojs/taro": "^3.0.0-rc.0"
-	},
+	"dependencies": {},
 	"devDependencies": {
+		"@tarojs/taro": "^3.0.0-rc.0",
 		"@types/react": "^16.9.35"
 	}
 }
