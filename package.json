@@ -1,16 +1,43 @@
 {
 	"name": "taro-router-wx",
-	"np": {
-		"content": "dist"
-	},
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"description": "",
-	"main": "index.js",
+	"author": "obito",
+	"email": "lvy.123@foxmail.com",
+	"main": "dist/index.js",
+	"types": " dist/index.d.ts",
+	"keywords": [
+		"taro",
+		"taro3",
+		"react",
+		"reactjs",
+		"vue",
+		"vuejs",
+		"taro-router",
+		"router",
+		"weixin",
+		"wechat",
+		"weapp",
+		"wx",
+		"javascript",
+		"typescript"
+	],
 	"scripts": {
 		"build": "tsc -p .",
+		"prepublishOnly": "npm run build",
+		"release": "np",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "obito",
+	"files": [ "dist" ],
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org",
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/UchihaObitoZzz/taro-router-wx.git"
+	},
+	"homepage": "https://github.com/UchihaObitoZzz/taro-router-wx",
 	"license": "ISC",
 	"dependencies": {},
 	"devDependencies": {
