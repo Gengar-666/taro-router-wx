@@ -1,6 +1,6 @@
 {
 	"name": "taro-router-wx",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "微信小程序taro路由改造",
 	"author": "obito",
 	"email": "lvy.123@foxmail.com",
@@ -22,7 +22,9 @@
 		"javascript",
 		"typescript"
 	],
-	"files": [ "dist" ],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "tsc -p .",
 		"prepublishOnly": "npm run build",
