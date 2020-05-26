@@ -1,17 +1,5 @@
-import { RouterInfo, Location } from './types';
+import { Location } from './types';
 declare class History {
-    /**
-     * 当前页面实例
-     */
-    app?: {};
-    /**
-     * 当前页面路由信息
-     */
-    current: RouterInfo;
-    /**
-     * 所有访问过的页面路由信息
-     */
-    pages: RouterInfo[];
     constructor();
     /**
    * 监听路由变化

@@ -51,6 +51,22 @@ export interface BeforeEachHookCallBack {
   (to: RouterInfo, from: { path: string, query?: { [key: string]: any } }, next: HookNext): void
 }
 
+/**
+ * 路由跳转后的Hook回调函数
+ */
+export interface AfterEachHookCallBack {
+  (pageInfo: {
+    /**
+     * 页面打开方式
+     */
+    openType: string,
+    webviewId: number,
+    path: string,
+    query: { [key: string]: any }
+  }, page: {}): void
+}
+
 export interface Hooks {
-  beforeEachHookCallBack: BeforeEachHookCallBack | null
+  beforeEachHookCallBack: BeforeEachHookCallBack | null,
+  afterEachHookCallBack: AfterEachHookCallBack | null
 }

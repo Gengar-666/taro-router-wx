@@ -19,6 +19,7 @@ function getUrl(location: Location) {
     return `${path}?${qs.stringify(query)}`
   } else {
     console.error('router.push传递参数类型错误!')
+    return ''
   }
 }
 
@@ -35,29 +36,8 @@ const hookNext: HookNext = param => {
 }
 
 class History {
-  /**
-   * 当前页面实例
-   */
-  app?: {}
-
-  /** 
-   * 当前页面路由信息
-   */
-  current: RouterInfo
-
-  /**
-   * 所有访问过的页面路由信息
-   */
-  pages: RouterInfo[]
 
   constructor() {
-
-    this.app = {}
-
-    this.current = {} as RouterInfo
-
-    this.pages = [] as RouterInfo[]
-
     this.listen()
   }
 
@@ -66,16 +46,12 @@ class History {
  */
   listen() {
     wx.onAppRoute(res => {
-      const { webviewId, path, query } = res
-      delete query.__key_
-      const fullPath = getUrl({ path, query }) as string
-
-      if (!this.pages.some(page => page.webviewId === webviewId)) {
-        this.pages.push({ webviewId, fullPath, path, query })
+      let pages = Taro.getCurrentPages()
+      let currentPage = pages[pages.length - 1]
+      delete res.query.__key_
+      if (Hooks.afterEachHookCallBack) {
+        Hooks.afterEachHookCallBack(res, currentPage)
       }
-
-      this.app = Taro.getCurrentPages().pop()
-      this.current = { webviewId, fullPath, path, query }
     })
   }
 
@@ -94,6 +70,7 @@ class History {
     }
 
     const URL = getUrl(location)
+    console.log(URL)
 
     if (!URL) {
       return
@@ -108,14 +85,22 @@ class History {
     }
 
     if (Hooks.beforeEachHookCallBack) {
-      Hooks.beforeEachHookCallBack(this.current, from, async (param, openType = 'push') => {
+
+      let pages = Taro.getCurrentPages()
+      let currentPage = pages[pages.length - 1]
+      let path = currentPage.route
+      let query = currentPage.options
+      delete query.__key_
+
+      let to = {
+        path,
+        query
+      } as RouterInfo
+
+      Hooks.beforeEachHookCallBack(to, from, async (param, openType = 'push') => {
         await hookNext(param)
         if (typeof param === 'object') {
           return this[openType](param, openType)
-        }
-        if (typeof param === 'function') {
-          Taro[OPEN_TYPES[openType]]({ url: URL })
-          return setTimeout(() => param(Taro.getCurrentPages().pop()), 1000)
         }
         return Taro[OPEN_TYPES[openType]]({ url: URL })
       })

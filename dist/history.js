@@ -24,6 +24,7 @@ function getUrl(location) {
     }
     else {
         console.error('router.push传递参数类型错误!');
+        return '';
     }
 }
 /**
@@ -39,9 +40,6 @@ const hookNext = param => {
 };
 class History {
     constructor() {
-        this.app = {};
-        this.current = {};
-        this.pages = [];
         this.listen();
     }
     /**
@@ -49,14 +47,12 @@ class History {
    */
     listen() {
         wx.onAppRoute(res => {
-            const { webviewId, path, query } = res;
-            delete query.__key_;
-            const fullPath = getUrl({ path, query });
-            if (!this.pages.some(page => page.webviewId === webviewId)) {
-                this.pages.push({ webviewId, fullPath, path, query });
+            let pages = taro_1.default.getCurrentPages();
+            let currentPage = pages[pages.length - 1];
+            delete res.query.__key_;
+            if (hooks_1.default.afterEachHookCallBack) {
+                hooks_1.default.afterEachHookCallBack(res, currentPage);
             }
-            this.app = taro_1.default.getCurrentPages().pop();
-            this.current = { webviewId, fullPath, path, query };
         });
     }
     /**
@@ -73,6 +69,7 @@ class History {
             OPEN_TYPES["relaunch"] = "relaunch";
         })(OPEN_TYPES || (OPEN_TYPES = {}));
         const URL = getUrl(location);
+        console.log(URL);
         if (!URL) {
             return;
         }
@@ -84,14 +81,19 @@ class History {
             from = { path: location, query: location.query || {} };
         }
         if (hooks_1.default.beforeEachHookCallBack) {
-            hooks_1.default.beforeEachHookCallBack(this.current, from, async (param, openType = 'push') => {
+            let pages = taro_1.default.getCurrentPages();
+            let currentPage = pages[pages.length - 1];
+            let path = currentPage.route;
+            let query = currentPage.options;
+            delete query.__key_;
+            let to = {
+                path,
+                query
+            };
+            hooks_1.default.beforeEachHookCallBack(to, from, async (param, openType = 'push') => {
                 await hookNext(param);
                 if (typeof param === 'object') {
                     return this[openType](param, openType);
-                }
-                if (typeof param === 'function') {
-                    taro_1.default[OPEN_TYPES[openType]]({ url: URL });
-                    return setTimeout(() => param(taro_1.default.getCurrentPages().pop()), 1000);
                 }
                 return taro_1.default[OPEN_TYPES[openType]]({ url: URL });
             });
