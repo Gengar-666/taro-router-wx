@@ -1,5 +1,8 @@
 {
 	"name": "taro-router-wx",
+	"np": {
+		"content": "dist"
+	},
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
