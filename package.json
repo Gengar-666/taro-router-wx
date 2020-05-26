@@ -5,7 +5,7 @@
 	"author": "obito",
 	"email": "lvy.123@foxmail.com",
 	"main": "dist/index.js",
-	"types": " dist/index.d.ts",
+	"types": "dist/index.d.ts",
 	"keywords": [
 		"taro",
 		"taro3",
