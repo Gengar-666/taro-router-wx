@@ -65,6 +65,7 @@ export interface AfterEachHookCallBack {
         query: {
             [key: string]: any;
         };
+        scene?: number;
     }, page: {}): void;
 }
 export interface Hooks {

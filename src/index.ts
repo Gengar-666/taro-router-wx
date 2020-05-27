@@ -4,7 +4,6 @@ import History from './history'
 import Hooks from './hooks'
 import { BeforeEachHookCallBack, AfterEachHookCallBack, Location } from './types'
 
-
 class TaroRouter {
   history: History
 
@@ -107,11 +106,19 @@ class TaroRouter {
   }
 
   /**
-   * 自动把router实例挂载到Componet原型上。
+   * 自动把router实例挂载到ReactComponet原型上。
    * @param componet 组件实例
    */
-  register(componet) {
-    componet.prototype.$router = this
+  installReact(React) {
+    React.Component.prototype.$router = this
+  }
+
+  /**
+   * 自动把router实例挂载到NervComponet原型上。
+   * @param componet 组件实例
+   */
+  installNerv(Taro) {
+    Taro.CompComponentonet.prototype.$$router = this
   }
 
   /**
@@ -122,4 +129,4 @@ class TaroRouter {
   }
 }
 
-export default TaroRouter
+export default new TaroRouter()

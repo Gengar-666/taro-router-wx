@@ -10,16 +10,19 @@ $ npm install taro-router-wx
 ## usage
 
 ```js
-// React, Nerv
+// React
 import React, { Component } from 'react'
-import TaroRouter from 'taro-router-wx'
-const router = new TaroRouter()
-router.register(Component)
+import router from 'taro-router-wx'
+router.installReact(React)
+
+// Nerv
+import Taro, { Component } from "@tarojs/taro";
+import router from 'taro-router-wx'
+router.installNerv(Taro)
 
 // Vue
 import Vue from 'vue'
-import TaroRouter from 'taro-router-wx'
-const router = new TaroRouter()
+import router from 'taro-router-wx'
 Vue.use(router)
 
 // 全局注册路由跳转前的钩子函数，可以拦截路由跳转
@@ -27,7 +30,7 @@ router.beforeEach((to, from, next) => {
   console.log('当前页面:', to.path)
   console.log('即将跳转的页面:', from.path)
 
-  // to do ..
+  // todo ..
 
   // 必须执行next方法resolve进行跳转，否则跳转永远不会被执行
   next()
@@ -45,8 +48,12 @@ router.afterEach((res, page) => {
   console.log('当前页面信息', res)
   console.log('当前页面实例', page)
 
-  // to do ..
+  // todo ..
 })
+
+// 路由跳转
+// React，Vue使用this.$router访问路由实例
+// Nerv使用this.$$router访问
 
 let location = {path: 'pages/test/index', query:{ test:1 }}
 // 或者

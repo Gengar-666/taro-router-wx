@@ -95,11 +95,18 @@ class TaroRouter {
         hooks_1.default.afterEachHookCallBack = afterEachHookCallBack;
     }
     /**
-     * 自动把router实例挂载到Componet原型上。
+     * 自动把router实例挂载到ReactComponet原型上。
      * @param componet 组件实例
      */
-    register(componet) {
-        componet.prototype.$router = this;
+    installReact(React) {
+        React.Component.prototype.$router = this;
+    }
+    /**
+     * 自动把router实例挂载到NervComponet原型上。
+     * @param componet 组件实例
+     */
+    installNerv(Taro) {
+        Taro.CompComponentonet.prototype.$$router = this;
     }
     /**
      * 适用Vue.use
@@ -108,4 +115,4 @@ class TaroRouter {
         Vue.prototype.$router = this;
     }
 }
-exports.default = TaroRouter;
+exports.default = new TaroRouter();

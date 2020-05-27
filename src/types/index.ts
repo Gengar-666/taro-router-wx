@@ -63,6 +63,7 @@ export interface AfterEachHookCallBack {
     webviewId: number,
     path: string,
     query: { [key: string]: any }
+    scene?: number
   }, page: {}): void
 }
 

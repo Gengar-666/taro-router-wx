@@ -55,13 +55,19 @@ declare class TaroRouter {
      */
     afterEach(afterEachHookCallBack: AfterEachHookCallBack): void;
     /**
-     * 自动把router实例挂载到Componet原型上。
+     * 自动把router实例挂载到ReactComponet原型上。
      * @param componet 组件实例
      */
-    register(componet: any): void;
+    installReact(React: any): void;
+    /**
+     * 自动把router实例挂载到NervComponet原型上。
+     * @param componet 组件实例
+     */
+    installNerv(Taro: any): void;
     /**
      * 适用Vue.use
      */
     install(Vue: any): void;
 }
-export default TaroRouter;
+declare const _default: TaroRouter;
+export default _default;
