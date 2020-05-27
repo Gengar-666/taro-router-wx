@@ -43,10 +43,17 @@ class History {
         this.listen();
     }
     /**
-   * 监听路由变化
-   */
+     * 当前页面栈的长度
+     */
+    get length() {
+        return taro_1.default.getCurrentPages().length;
+    }
+    /**
+     * 监听路由变化
+     */
     listen() {
         wx.onAppRoute(res => {
+            this.currentPageOpenType = res.openType;
             let pages = taro_1.default.getCurrentPages();
             let currentPage = pages[pages.length - 1];
             delete res.query.__key_;
@@ -69,7 +76,6 @@ class History {
             OPEN_TYPES["relaunch"] = "relaunch";
         })(OPEN_TYPES || (OPEN_TYPES = {}));
         const URL = getUrl(location);
-        console.log(URL);
         if (!URL) {
             return;
         }
@@ -90,10 +96,10 @@ class History {
                 path,
                 query
             };
-            hooks_1.default.beforeEachHookCallBack(to, from, async (param, openType = 'push') => {
+            hooks_1.default.beforeEachHookCallBack(to, from, async (param, newOpenType = 'push') => {
                 await hookNext(param);
                 if (typeof param === 'object') {
-                    return this[openType](param, openType);
+                    return this[openType](param, newOpenType);
                 }
                 return taro_1.default[OPEN_TYPES[openType]]({ url: URL });
             });
@@ -121,14 +127,14 @@ class History {
      * @param {Location} location
      */
     switchTab(location) {
-        this.toPage(location, 'replace');
+        this.toPage(location, 'switchTab');
     }
     /**
      * 关闭所有页面，打开到应用内的某个页面
      * @param {Location} location
      */
     relaunch(location) {
-        this.toPage(location, 'replace');
+        this.toPage(location, 'relaunch');
     }
     /**
      * 返回

@@ -5,6 +5,11 @@ declare class TaroRouter {
     history: History;
     constructor();
     /**
+     * 异步获取当前页面打开方式
+     * @param cb
+     */
+    getPageOpenTypeSync(cb: (openType?: string) => void): void;
+    /**
      * 获取路由参数
      */
     readonly query: any;
@@ -69,5 +74,6 @@ declare class TaroRouter {
      */
     install(Vue: any): void;
 }
-declare const _default: TaroRouter;
-export default _default;
+declare const route: TaroRouter;
+export declare const useRouter: () => TaroRouter;
+export default route;

@@ -46,14 +46,20 @@ router.beforeEach((to, from, next) => {
 router.afterEach((res, page) => {
   console.log('页面跳转成功 ===========')
   console.log('当前页面信息', res)
+  console.log('当前页面打开方式', res.openType)
+  console.log('当前页面路径', res.path)
+  console.log('当前页面的路由参数', res.query)
+  console.log('当前页面的webviewId', res.webviewId)
+  console.log('当前页面的场景值', res.scene)
   console.log('当前页面实例', page)
 
   // todo ..
 })
 
 // class组件路由跳转
-// React，Vue使用this.$router访问路由实例
-// Nerv使用this.$$router访问
+
+// React，Vue使用 this.$router 访问路由实例
+// Nerv使用 this.$$router 访问
 
 let location = {path: 'pages/test/index', query:{ test:1 }}
 // 或者
@@ -74,6 +80,11 @@ this.$router.relaunch(location)
 // navigateBack
 this.$router.back()
 
+// 异步获取当前页面的打开方式
+this.$router.getPageOpenTypeSync(openType => 
+  console.log('当前页面打开方式', openType)
+)
+
 // 获取页面参数
 this.$router.query
 
@@ -86,13 +97,16 @@ this.$router.fullPath
 // 获取当前页面实例
 this.$router.currentPage
 
+// 获取当前页面栈总数
+this.$router.history.length
+
 // 函数式组件路由跳转
 import { useRouter } from 'taro-router-wx'
 const router = useRouter()
 
-// 使用方法同class组件
-
 // navigateTo
 router.push(location)
+
+// 其他api同class
 
 ```

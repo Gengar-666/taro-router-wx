@@ -12,6 +12,14 @@ class TaroRouter {
         this.history = new history_1.default();
     }
     /**
+     * 异步获取当前页面打开方式
+     * @param cb
+     */
+    getPageOpenTypeSync(cb) {
+        // 使用定时器把获取任务推到任务栈栈底，不然获取到的都是上一次的
+        setTimeout(() => cb(this.history.currentPageOpenType), 0);
+    }
+    /**
      * 获取路由参数
      */
     get query() {
@@ -115,4 +123,6 @@ class TaroRouter {
         Vue.prototype.$router = this;
     }
 }
-exports.default = new TaroRouter();
+const route = new TaroRouter();
+exports.useRouter = () => route;
+exports.default = route;

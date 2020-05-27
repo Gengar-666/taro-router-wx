@@ -1,9 +1,17 @@
 import { Location } from './types';
 declare class History {
+    /**
+     * 当前页面打开方式
+     */
+    currentPageOpenType: any;
     constructor();
     /**
-   * 监听路由变化
-   */
+     * 当前页面栈的长度
+     */
+    readonly length: number;
+    /**
+     * 监听路由变化
+     */
     listen(): void;
     /**
      * 页面跳转统一处理
