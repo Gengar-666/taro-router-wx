@@ -51,7 +51,7 @@ router.afterEach((res, page) => {
   // todo ..
 })
 
-// 路由跳转
+// class组件路由跳转
 // React，Vue使用this.$router访问路由实例
 // Nerv使用this.$$router访问
 
@@ -85,4 +85,14 @@ this.$router.fullPath
 
 // 获取当前页面实例
 this.$router.currentPage
+
+// 函数式组件路由跳转
+import { useRouter } from 'taro-router-wx'
+const router = useRouter()
+
+// 使用方法同class组件
+
+// navigateTo
+router.push(location)
+
 ```

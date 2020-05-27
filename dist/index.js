@@ -106,7 +106,7 @@ class TaroRouter {
      * @param componet 组件实例
      */
     installNerv(Taro) {
-        Taro.CompComponentonet.prototype.$$router = this;
+        Taro.Component.prototype.$$router = this;
     }
     /**
      * 适用Vue.use

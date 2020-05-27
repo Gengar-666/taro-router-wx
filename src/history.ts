@@ -37,18 +37,33 @@ const hookNext: HookNext = param => {
 
 class History {
 
+  /**
+   * 当前页面打开方式
+   */
+  currentPageOpenType
+
   constructor() {
     this.listen()
   }
 
   /**
- * 监听路由变化
- */
+   * 当前页面栈的长度
+   */
+  get length() {
+    return Taro.getCurrentPages().length
+  }
+
+  /**
+   * 监听路由变化
+   */
   listen() {
     wx.onAppRoute(res => {
+      this.currentPageOpenType = res.openType
+
       let pages = Taro.getCurrentPages()
       let currentPage = pages[pages.length - 1]
       delete res.query.__key_
+
       if (Hooks.afterEachHookCallBack) {
         Hooks.afterEachHookCallBack(res, currentPage)
       }
@@ -70,7 +85,6 @@ class History {
     }
 
     const URL = getUrl(location)
-    console.log(URL)
 
     if (!URL) {
       return
@@ -97,10 +111,10 @@ class History {
         query
       } as RouterInfo
 
-      Hooks.beforeEachHookCallBack(to, from, async (param, openType = 'push') => {
+      Hooks.beforeEachHookCallBack(to, from, async (param, newOpenType = 'push') => {
         await hookNext(param)
         if (typeof param === 'object') {
-          return this[openType](param, openType)
+          return this[openType](param, newOpenType)
         }
         return Taro[OPEN_TYPES[openType]]({ url: URL })
       })
@@ -130,7 +144,7 @@ class History {
    * @param {Location} location 
    */
   switchTab(location: Location) {
-    this.toPage(location, 'replace')
+    this.toPage(location, 'switchTab')
   }
 
   /**
@@ -138,7 +152,7 @@ class History {
    * @param {Location} location 
    */
   relaunch(location: Location) {
-    this.toPage(location, 'replace')
+    this.toPage(location, 'relaunch')
   }
 
   /**
