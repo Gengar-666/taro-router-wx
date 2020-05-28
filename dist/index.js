@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const taro_1 = __importDefault(require("@tarojs/taro"));
 const qs_1 = __importDefault(require("qs"));
 const history_1 = __importDefault(require("./history"));
 const hooks_1 = __importDefault(require("./hooks"));
@@ -23,7 +22,7 @@ class TaroRouter {
      * 获取路由参数
      */
     get query() {
-        let pages = taro_1.default.getCurrentPages();
+        let pages = getCurrentPages();
         let query = pages[pages.length - 1].options;
         delete query.__key_;
         return query;
@@ -32,7 +31,7 @@ class TaroRouter {
      * 获取当前页面路径
      */
     get path() {
-        let pages = taro_1.default.getCurrentPages();
+        let pages = getCurrentPages();
         let currentPage = pages[pages.length - 1];
         return currentPage.route;
     }
@@ -40,7 +39,7 @@ class TaroRouter {
      * 获取当前页面完整路径
      */
     get fullPath() {
-        let pages = taro_1.default.getCurrentPages();
+        let pages = getCurrentPages();
         let currentPage = pages[pages.length - 1];
         let query = pages[pages.length - 1].options;
         let fullPath = `${currentPage.route}?${qs_1.default.stringify(query)}`;
@@ -50,7 +49,7 @@ class TaroRouter {
      * 获取当前页面实例
      */
     get currentPage() {
-        let pages = taro_1.default.getCurrentPages();
+        let pages = getCurrentPages();
         let currentPage = pages[pages.length - 1];
         return currentPage;
     }
@@ -104,14 +103,14 @@ class TaroRouter {
     }
     /**
      * 自动把router实例挂载到ReactComponet原型上。
-     * @param componet 组件实例
+     * @param React
      */
     installReact(React) {
         React.Component.prototype.$router = this;
     }
     /**
      * 自动把router实例挂载到NervComponet原型上。
-     * @param componet 组件实例
+     * @param Taro
      */
     installNerv(Taro) {
         Taro.Component.prototype.$$router = this;

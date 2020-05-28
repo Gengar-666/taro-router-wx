@@ -1,5 +1,4 @@
 import qs from 'qs'
-import Taro from '@tarojs/taro'
 import Hooks from './hooks'
 import { RouterInfo, Location, HookNext } from './types'
 
@@ -50,7 +49,7 @@ class History {
    * 当前页面栈的长度
    */
   get length() {
-    return Taro.getCurrentPages().length
+    return getCurrentPages().length
   }
 
   /**
@@ -60,7 +59,7 @@ class History {
     wx.onAppRoute(res => {
       this.currentPageOpenType = res.openType
 
-      let pages = Taro.getCurrentPages()
+      let pages = getCurrentPages()
       let currentPage = pages[pages.length - 1]
       delete res.query.__key_
 
@@ -100,7 +99,7 @@ class History {
 
     if (Hooks.beforeEachHookCallBack) {
 
-      let pages = Taro.getCurrentPages()
+      let pages = getCurrentPages()
       let currentPage = pages[pages.length - 1]
       let path = currentPage.route
       let query = currentPage.options
@@ -116,10 +115,10 @@ class History {
         if (typeof param === 'object') {
           return this[openType](param, newOpenType)
         }
-        return Taro[OPEN_TYPES[openType]]({ url: URL })
+        return wx[OPEN_TYPES[openType]]({ url: URL })
       })
     } else {
-      Taro[OPEN_TYPES[openType]]({ url: URL })
+      wx[OPEN_TYPES[openType]]({ url: URL })
     }
   }
 
@@ -159,7 +158,7 @@ class History {
    * 返回
    */
   back() {
-    Taro.navigateBack({ delta: 1 })
+    wx.navigateBack({ delta: 1 })
   }
 }
 

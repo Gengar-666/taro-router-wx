@@ -1,4 +1,3 @@
-import Taro from '@tarojs/taro';
 import History from './history';
 import { BeforeEachHookCallBack, AfterEachHookCallBack, Location } from './types';
 declare class TaroRouter {
@@ -16,7 +15,7 @@ declare class TaroRouter {
     /**
      * 获取当前页面路径
      */
-    readonly path: string;
+    readonly path: any;
     /**
      * 获取当前页面完整路径
      */
@@ -24,7 +23,7 @@ declare class TaroRouter {
     /**
      * 获取当前页面实例
      */
-    readonly currentPage: Taro.Page;
+    readonly currentPage: any;
     /**
      * 普通跳转
      * @param {Location} location
@@ -61,12 +60,12 @@ declare class TaroRouter {
     afterEach(afterEachHookCallBack: AfterEachHookCallBack): void;
     /**
      * 自动把router实例挂载到ReactComponet原型上。
-     * @param componet 组件实例
+     * @param React
      */
     installReact(React: any): void;
     /**
      * 自动把router实例挂载到NervComponet原型上。
-     * @param componet 组件实例
+     * @param Taro
      */
     installNerv(Taro: any): void;
     /**

@@ -1,7 +1,7 @@
 {
 	"name": "taro-router-wx",
 	"version": "1.0.1",
-	"description": "微信小程序taro路由改造",
+	"description": "微信小程序taro路由",
 	"author": "obito",
 	"email": "lvy.123@foxmail.com",
 	"main": "dist/index.js",
@@ -22,9 +22,7 @@
 		"javascript",
 		"typescript"
 	],
-	"files": [
-		"dist"
-	],
+	"files": [ "dist" ],
 	"scripts": {
 		"build": "tsc -p .",
 		"prepublishOnly": "npm run build",
@@ -41,8 +39,5 @@
 	"homepage": "https://github.com/UchihaObitoZzz/taro-router-wx",
 	"license": "ISC",
 	"dependencies": {},
-	"devDependencies": {
-		"@tarojs/taro": "^3.0.0-rc.0",
-		"@types/react": "^16.9.35"
-	}
+	"devDependencies": {}
 }

@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const qs_1 = __importDefault(require("qs"));
-const taro_1 = __importDefault(require("@tarojs/taro"));
 const hooks_1 = __importDefault(require("./hooks"));
 /**
  * 获取需要跳转的路由
@@ -46,7 +45,7 @@ class History {
      * 当前页面栈的长度
      */
     get length() {
-        return taro_1.default.getCurrentPages().length;
+        return getCurrentPages().length;
     }
     /**
      * 监听路由变化
@@ -54,7 +53,7 @@ class History {
     listen() {
         wx.onAppRoute(res => {
             this.currentPageOpenType = res.openType;
-            let pages = taro_1.default.getCurrentPages();
+            let pages = getCurrentPages();
             let currentPage = pages[pages.length - 1];
             delete res.query.__key_;
             if (hooks_1.default.afterEachHookCallBack) {
@@ -87,7 +86,7 @@ class History {
             from = { path: location, query: location.query || {} };
         }
         if (hooks_1.default.beforeEachHookCallBack) {
-            let pages = taro_1.default.getCurrentPages();
+            let pages = getCurrentPages();
             let currentPage = pages[pages.length - 1];
             let path = currentPage.route;
             let query = currentPage.options;
@@ -101,11 +100,11 @@ class History {
                 if (typeof param === 'object') {
                     return this[openType](param, newOpenType);
                 }
-                return taro_1.default[OPEN_TYPES[openType]]({ url: URL });
+                return wx[OPEN_TYPES[openType]]({ url: URL });
             });
         }
         else {
-            taro_1.default[OPEN_TYPES[openType]]({ url: URL });
+            wx[OPEN_TYPES[openType]]({ url: URL });
         }
     }
     /**
@@ -140,7 +139,7 @@ class History {
      * 返回
      */
     back() {
-        taro_1.default.navigateBack({ delta: 1 });
+        wx.navigateBack({ delta: 1 });
     }
 }
 exports.default = History;

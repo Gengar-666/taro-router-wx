@@ -8,7 +8,7 @@ declare class History {
     /**
      * 当前页面栈的长度
      */
-    readonly length: number;
+    readonly length: any;
     /**
      * 监听路由变化
      */
